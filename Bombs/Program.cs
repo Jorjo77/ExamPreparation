@@ -10,56 +10,64 @@ namespace Bombs
         static void Main(string[] args)
         {
             int[] arr1 = Console.ReadLine()
-                     .Split(", ")
+                     .Split(", ",StringSplitOptions.RemoveEmptyEntries)
                      .Select(int.Parse)
                      .ToArray();
             int[] arr2 = Console.ReadLine()
-                    .Split(", ")
+                    .Split(", ", StringSplitOptions.RemoveEmptyEntries)
                     .Select(int.Parse)
                     .ToArray();
-            int dauturaBombs = 0;
-            int cherryBombs = 0;
-            int smokeDecoryBombs = 0;
-            Stack<int> bombEffects = new Stack<int>(arr1);
-            Queue<int> bombCasings = new Queue<int>(arr2);
-            Dictionary<int, int> bombs = new Dictionary<int, int>();
-            while (bombEffects.Count>0||bombCasings.Count>0)
+            bool IsCompleted = false;
+            string dauturaBombs = string.Empty;
+            string cherryBombs = string.Empty;
+            string smokeDecoryBombs = string.Empty;
+            Queue<int> bombEffects = new Queue<int>(arr1);
+            Stack<int> bombCasings = new Stack<int>(arr2);
+            Dictionary<string, int> bombs = new Dictionary<string, int>();
+            while (bombEffects.Count>0 && bombCasings.Count>0)
             {
+                ComplimationCheck(bombs, IsCompleted);//Не разбирам защо като е върнало долу true, тук става false!?
+                if (IsCompleted)
+                {
+                    break;
+                }
                 int currCasing = bombCasings.Peek();
-                int currBoimbs = bombEffects.Peek();
-                int currSum = currBoimbs +
+                int currBombs = bombEffects.Peek();
+                int currSum = currBombs +
                 currCasing;
                 if (currSum == 40)
                 {
-                    dauturaBombs++;
+                    dauturaBombs = "Datura Bombs";
                     AddBomb(dauturaBombs, bombs);
-                    bombCasings.Dequeue();
-                    bombEffects.Pop();
+                    bombCasings.Pop();
+                    bombEffects.Dequeue();
                 }
                 else if (currSum==60)
                 {
-                    cherryBombs++;
+                    cherryBombs = "Cherry Bombs";
                     AddBomb(cherryBombs, bombs);
-                    bombCasings.Dequeue();
-                    bombEffects.Pop();
+                    bombCasings.Pop();
+                    bombEffects.Dequeue();
                 }
                 else if (currSum == 120)
                 {
-                    smokeDecoryBombs++;
+                    smokeDecoryBombs = "Smoke Decoy Bombs";
                     AddBomb(smokeDecoryBombs, bombs);
-                    bombCasings.Dequeue();
-                    bombEffects.Pop();
+                    bombCasings.Pop();
+                    bombEffects.Dequeue();
                 }
                 else
                 {
-                currCasing -= 5;
+                    int topElement = bombCasings.Pop();
+                    topElement -= 5;
+                    bombCasings.Push(topElement);
                 }
             }
-            if (dauturaBombs != 0|| cherryBombs != 0|| smokeDecoryBombs!=0)
+            if (bombCasings.Count != 0 && bombEffects.Count != 0)
             { 
                 Console.WriteLine( "Bene! You have successfully filled the bomb pouch!");
             }
-            else if (dauturaBombs == 0 || cherryBombs == 0 || smokeDecoryBombs== 0)
+            else if (bombCasings.Count == 0 && bombEffects.Count == 0)
             {
                 Console.WriteLine("You don't have enough materials to fill the bomb pouch.");
             }
@@ -69,9 +77,10 @@ namespace Bombs
             }
             else
             {
-                foreach (var item in bombEffects)
+                while (bombEffects.Count>0)
                 {
-                    Console.Write(bombEffects.Pop() + " ");
+                    Console.Write($"Bomb Effects: {bombEffects.Dequeue()} ");
+                    Console.WriteLine();
                 }
             }
             if (bombCasings.Count == 0)
@@ -80,24 +89,38 @@ namespace Bombs
             }
             else
             {
-                foreach (var item in bombCasings)
+                while (bombCasings.Count>0)
                 {
-                    Console.Write(bombCasings.Dequeue() + " ");
+                    Console.Write($"Bomb Casings: {bombCasings.Pop()} ");
                 }
             }
-            foreach (var bomb in bombs.OrderBy(k=>k))
+            foreach (var bomb in bombs.OrderBy(k=>k.Key))
             {
                 Console.WriteLine($"{bomb.Key}: {bomb.Value}");
             }
         }
 
-        private static void AddBomb(int smokeDecoryBombs, Dictionary<int, int> bombs)
+        private static void AddBomb(string bomb, Dictionary<string, int> bombs)
         {
-            if (!bombs.ContainsKey(smokeDecoryBombs))
+            if (!bombs.ContainsKey(bomb))
             {
-                bombs.Add(smokeDecoryBombs, 0);
+                bombs.Add(bomb, 0);
             }
-            bombs[smokeDecoryBombs] += 1;
+            bombs[bomb] += 1;
+
+        }
+
+        private static bool ComplimationCheck(Dictionary<string, int> bombs, bool IsCompleted)
+        {
+            foreach (var item in bombs)
+            {
+                if (item.Key == "Datura Bombs" && item.Value >= 3 || item.Key == "Cherry Bombs" && item.Value >= 3 || item.Key == "Smoke Decoy Bombs" && item.Value >= 3)
+                {
+                    return IsCompleted = true;
+                }
+
+            }
+             return IsCompleted = false;
         }
     }
 }
