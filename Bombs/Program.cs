@@ -85,7 +85,6 @@ namespace Bombs
             {
                 Console.WriteLine($"Bomb Casings: {string.Join(", ", bombCasings)}");
             }
-
             Console.WriteLine($"Cherry Bombs: {cherryBombs}");
             Console.WriteLine($"Datura Bombs: {dauturaBombs}");
             Console.WriteLine($"Smoke Decoy Bombs: {smokeDecoryBombs}");
