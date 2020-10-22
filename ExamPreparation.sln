@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExamPreparation", "ExamPreparation\ExamPreparation.csproj", "{52B48400-8702-4745-9DAB-C014FDF24408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parcing", "ExamPreparation\Parcing.csproj", "{52B48400-8702-4745-9DAB-C014FDF24408}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bombs", "Bombs\Bombs.csproj", "{21C90B6C-981C-4A6F-AA82-913F354A5CDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake\Snake.csproj", "{067A2E8D-1646-49F6-BF99-0A9B54625C96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snake", "Snake\Snake.csproj", "{067A2E8D-1646-49F6-BF99-0A9B54625C96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

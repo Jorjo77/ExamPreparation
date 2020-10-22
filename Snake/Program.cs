@@ -69,7 +69,7 @@ namespace Snake
 
                 if (!IsInside(matrix, snakeRow, snakeCol))
                 {
-                    Console.WriteLine("Game over");
+                    Console.WriteLine("Game over!");
                     break;
                 }
                 if (matrix[snakeRow, snakeCol] == '*')
@@ -95,11 +95,12 @@ namespace Snake
                 {
                     Console.WriteLine("You won! You fed the snake.");
                     matrix[snakeRow, snakeCol] = 'S';
-                    Console.WriteLine($"Food eaten: {foodQuantity}");
                     break;
                 }
-                PrintMatrix(matrix);
+
             }
+            Console.WriteLine($"Food eaten: {foodQuantity}");
+            PrintMatrix(matrix);
         }
         static void PrintMatrix(char[,] matrix)
         {
@@ -119,7 +120,7 @@ namespace Snake
             {
                 return false;
             }
-            if (row>matrix.GetLength(0)||col>matrix.GetLength(1))
+            if (row>=matrix.GetLength(0)||col>=matrix.GetLength(1))
             {
                 return false;
             }
