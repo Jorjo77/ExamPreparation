@@ -1,15 +1,7 @@
 ﻿using System;
 
-namespace ExamPreparation
+namespace Parking2
 {
-    public class StartUp
-    {
-        static void Main(string[] args)
-        {
-            using System;
-
-namespace Parking
-    {
         public class StartUp
         {
             static void Main(string[] args)
@@ -52,11 +44,8 @@ namespace Parking
                 // The cars are parked in Underground parking garage:
                 // Peugeot 307(2011)
                 // Audi S4(2005)
-
             }
         }
     }
 
-}
-    }
-}
+
